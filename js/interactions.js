@@ -1,119 +1,87 @@
-/* ==========================================================================
-   How Cars Work — Interactions
-   SVG region highlights (hover + mobile tap fallback) and system chips.
-   ========================================================================== */
-
+/* How Cars Work — interactive car explorer */
 (function () {
-  const INFO_NAME = document.getElementById("info-name");
-  const INFO_DESC = document.getElementById("info-desc");
-  const INFO_LINK = document.getElementById("info-link");
-  const INFO_BOX = document.getElementById("info-box");
-  const TAP_HINT = document.getElementById("tap-hint");
-  const SYSTEM_GRID = document.getElementById("system-grid");
-  const EXPLORE_PROMPT = document.getElementById("explore-prompt");
+  "use strict";
 
-  let systemsBySlug = {};
+  const infoName = document.getElementById("info-name");
+  const infoDesc = document.getElementById("info-desc");
+  const infoLink = document.getElementById("info-link");
+  const infoBox = document.getElementById("info-box");
+  const tapHint = document.getElementById("tap-hint");
+  const systemGrid = document.getElementById("system-grid");
+  const explorePrompt = document.getElementById("explore-prompt");
+  const regions = [...document.querySelectorAll(".region")];
+  const systemsBySlug = new Map();
+  let activeSlug = null;
 
-  // ------------------------------------------------------------------ Init
+  function selectSystem(slug) {
+    const system = systemsBySlug.get(slug);
+    if (!system) return;
+
+    activeSlug = slug;
+    regions.forEach((region) => {
+      const selected = region.dataset.slug === slug;
+      region.classList.toggle("active", selected);
+      region.setAttribute("aria-pressed", String(selected));
+    });
+
+    systemGrid?.querySelectorAll(".system-chip").forEach((chip) => {
+      chip.classList.toggle("active", chip.dataset.slug === slug);
+      chip.setAttribute("aria-current", chip.dataset.slug === slug ? "true" : "false");
+    });
+
+    if (explorePrompt) explorePrompt.hidden = true;
+    if (infoName) infoName.textContent = system.name;
+    if (infoDesc) infoDesc.textContent = system.description;
+    if (infoLink) infoLink.href = `system.html?slug=${encodeURIComponent(slug)}`;
+    infoBox?.classList.remove("hidden");
+  }
+
+  function renderSystemChips(systems) {
+    if (!systemGrid) return;
+    systemGrid.innerHTML = systems.map((system) =>
+      `<a href="system.html?slug=${encodeURIComponent(system.slug)}" class="system-chip" data-slug="${system.slug}">${system.name}<span aria-hidden="true">↗</span></a>`
+    ).join("");
+  }
+
+  function setupRegions() {
+    regions.forEach((region) => {
+      const slug = region.dataset.slug;
+      const systemName = region.getAttribute("title") || slug;
+      region.setAttribute("tabindex", "0");
+      region.setAttribute("role", "link");
+      region.setAttribute("aria-label", `Explore the ${systemName} system`);
+
+      // Hover previews stay visible when the pointer moves to the information panel.
+      region.addEventListener("mouseenter", () => selectSystem(slug));
+      region.addEventListener("focus", () => selectSystem(slug));
+      region.addEventListener("click", () => {
+        window.location.href = `system.html?slug=${encodeURIComponent(slug)}`;
+      });
+      region.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          window.location.href = `system.html?slug=${encodeURIComponent(slug)}`;
+        }
+      });
+    });
+  }
+
   async function init() {
     try {
-      const res = await fetch("data/systems.json");
-      const data = await res.json();
-      data.systems.forEach((s) => {
-        systemsBySlug[s.slug] = s;
-      });
+      const response = await fetch("data/systems.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      data.systems.forEach((system) => systemsBySlug.set(system.slug, system));
       renderSystemChips(data.systems);
-    } catch (err) {
-      console.error("Failed to load systems.json:", err);
-      if (SYSTEM_GRID) SYSTEM_GRID.innerHTML = "<p>Content unavailable.</p>";
+    } catch (error) {
+      console.error("Failed to load system list:", error);
+      if (systemGrid) systemGrid.innerHTML = "<p class='muted-copy'>System list unavailable. Try refreshing.</p>";
     }
 
     setupRegions();
-
-    // Show tap hint on touch-capable devices only
-    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
-      if (TAP_HINT) TAP_HINT.style.display = "block";
+    if (("ontouchstart" in window || navigator.maxTouchPoints > 0) && tapHint) {
+      tapHint.style.display = "block";
     }
-  }
-
-  // ------------------------------------------------------------------ System chips
-  function renderSystemChips(systems) {
-    if (!SYSTEM_GRID) return;
-    SYSTEM_GRID.innerHTML = systems
-      .map(
-        (s) =>
-          `<a href="system.html?slug=${s.slug}" class="system-chip" data-slug="${s.slug}">${s.name} <span aria-hidden="true">↗</span></a>`
-      )
-      .join("");
-  }
-
-  // ------------------------------------------------------------------ Region setup
-  function setupRegions() {
-    const regions = document.querySelectorAll(".region");
-    if (!regions.length) return;
-
-    let activeRegion = null;
-
-    function show(slug) {
-      const s = systemsBySlug[slug];
-      if (!s) return;
-
-      // highlight
-      if (activeRegion) activeRegion.classList.remove("active");
-      const el = document.querySelector(`.region[data-slug="${slug}"]`);
-      if (el) {
-        el.classList.add("active");
-        activeRegion = el;
-      }
-
-      // info box
-      if (EXPLORE_PROMPT) EXPLORE_PROMPT.style.display = "none";
-      document.querySelectorAll(".system-chip").forEach((chip) => {
-        chip.classList.toggle("active", chip.dataset.slug === slug);
-      });
-
-      INFO_NAME.textContent = s.name;
-      INFO_DESC.textContent = s.description;
-      INFO_LINK.href = `system.html?slug=${slug}`;
-      INFO_BOX.classList.remove("hidden");
-    }
-
-    function hide() {
-      if (activeRegion) {
-        activeRegion.classList.remove("active");
-        activeRegion = null;
-      }
-      INFO_BOX.classList.add("hidden");
-      if (EXPLORE_PROMPT) EXPLORE_PROMPT.style.display = "";
-      document.querySelectorAll(".system-chip").forEach((chip) => chip.classList.remove("active"));
-    }
-
-    // Mouse (desktop)
-    regions.forEach((region) => {
-      const slug = region.getAttribute("data-slug");
-      region.addEventListener("mouseenter", () => show(slug));
-      region.addEventListener("mouseleave", hide);
-      region.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = `system.html?slug=${slug}`;
-      });
-    });
-
-    // Mobile tap fallback
-    regions.forEach((region) => {
-      const slug = region.getAttribute("data-slug");
-      region.addEventListener("touchstart", (e) => {
-        e.stopPropagation();
-        show(slug);
-      });
-    });
-
-    // Tap anywhere else clears the highlight
-    document.addEventListener("touchstart", (e) => {
-      if (!e.target.closest(".region")) {
-        hide();
-      }
-    });
   }
 
   init();
