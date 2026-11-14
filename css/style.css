@@ -59,12 +59,13 @@ img { max-width:100%; display:block; border-radius:var(--radius); }
 .section-lead { color:var(--text-soft); font-size:1rem; max-width:56ch; }
 .section-doodle { color:#e8a72d; font-size:2.5rem; transform:rotate(12deg); padding-right:1rem; }
 .hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(290px,.85fr); gap:1.35rem; align-items:stretch; }
-.hero-svg-wrap { position:relative; width:100%; border-radius:24px; overflow:hidden; border:1px solid #e9dfcf; background:linear-gradient(180deg,#fff 0%,#fffaf0 100%); box-shadow:var(--shadow); display:flex; flex-direction:column; justify-content:center; }
-.illustration-label { position:absolute; top:1rem; left:1.1rem; color:var(--muted); font-size:.68rem; font-weight:900; letter-spacing:.13em; }
-.car-svg { width:100%; height:auto; display:block; margin-top:1.1rem; cursor:pointer; }
-.region { cursor:pointer; transition:filter .18s ease,fill .18s ease,stroke .18s ease; stroke-linejoin:round; stroke-linecap:round; }
-.region:hover { filter:drop-shadow(0 3px 3px rgba(40,50,60,.2)); }
-.illustration-caption { padding:0 1.2rem 1rem; color:var(--muted); font-size:.76rem; text-align:center; }
+.hero-svg-wrap { position:relative; width:100%; border-radius:24px; overflow:hidden; border:1px solid #244d70; background:#071a2e; box-shadow:0 18px 42px rgba(5,22,39,.22); display:flex; flex-direction:column; justify-content:center; }
+.illustration-label { position:absolute; z-index:2; top:1rem; left:1.1rem; color:#a9cce6; font-size:.68rem; font-weight:900; letter-spacing:.13em; }
+.illustration-label .live-dot { background:#55d69a; box-shadow:0 0 0 4px rgba(85,214,154,.14); }
+.car-svg { width:100%; height:auto; display:block; cursor:crosshair; background:#071a2e; }
+.car-svg .region { cursor:pointer; outline:none; }
+.car-svg .region:focus-visible { filter:drop-shadow(0 0 7px rgba(255,177,75,.95)); }
+.illustration-caption { padding:.8rem 1.2rem 1rem; color:#a9cce6; background:#071a2e; font-size:.76rem; text-align:center; border-top:1px solid rgba(123,183,223,.2); }
 .hero-info-panel { display:flex; flex-direction:column; gap:.85rem; }
 .explore-prompt,.info-box { border:1px solid #f0dfc6; background:#fff; border-radius:20px; padding:1.15rem 1.25rem; box-shadow:var(--shadow); }
 .explore-prompt { min-height:145px; display:grid; grid-template-columns:auto 1fr; column-gap:.8rem; align-content:center; }
