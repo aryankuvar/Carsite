@@ -10,6 +10,7 @@
   const INFO_BOX = document.getElementById("info-box");
   const TAP_HINT = document.getElementById("tap-hint");
   const SYSTEM_GRID = document.getElementById("system-grid");
+  const EXPLORE_PROMPT = document.getElementById("explore-prompt");
 
   let systemsBySlug = {};
 
@@ -41,7 +42,7 @@
     SYSTEM_GRID.innerHTML = systems
       .map(
         (s) =>
-          `<a href="system.html?slug=${s.slug}" class="system-chip" data-slug="${s.slug}">${s.name}</a>`
+          `<a href="system.html?slug=${s.slug}" class="system-chip" data-slug="${s.slug}">${s.name} <span aria-hidden="true">↗</span></a>`
       )
       .join("");
   }
@@ -66,6 +67,11 @@
       }
 
       // info box
+      if (EXPLORE_PROMPT) EXPLORE_PROMPT.style.display = "none";
+      document.querySelectorAll(".system-chip").forEach((chip) => {
+        chip.classList.toggle("active", chip.dataset.slug === slug);
+      });
+
       INFO_NAME.textContent = s.name;
       INFO_DESC.textContent = s.description;
       INFO_LINK.href = `system.html?slug=${slug}`;
@@ -78,6 +84,8 @@
         activeRegion = null;
       }
       INFO_BOX.classList.add("hidden");
+      if (EXPLORE_PROMPT) EXPLORE_PROMPT.style.display = "";
+      document.querySelectorAll(".system-chip").forEach((chip) => chip.classList.remove("active"));
     }
 
     // Mouse (desktop)
