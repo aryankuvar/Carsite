@@ -51,39 +51,72 @@
       <div class="hero">
         <div class="hero-svg-wrap" role="region" aria-label="Interactive car illustration. Select a highlighted region to explore a car system.">
           <div class="illustration-label"><span class="live-dot"></span> INTERACTIVE CAR</div>
-          <svg class="car-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-label="Side profile of a car with clickable system regions">
+          <svg class="car-svg" viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Technical blueprint cutaway of a rear-wheel-drive car with interactive mechanical systems">
             <defs>
+              <linearGradient id="bodyGlow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#173b5d" stop-opacity=".22"/><stop offset="1" stop-color="#0b2037" stop-opacity=".04"/></linearGradient>
+              <linearGradient id="glassGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7dd3fc" stop-opacity=".22"/><stop offset="1" stop-color="#2563a6" stop-opacity=".05"/></linearGradient>
+              <pattern id="blueGrid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#4b83ae" stroke-opacity=".15" stroke-width="1"/></pattern>
+              <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               <style>
-                .region { cursor: pointer; transition: fill 0.15s ease, stroke 0.15s ease; stroke-linejoin: round; stroke-linecap: round; }
-                .region:hover { fill: var(--highlight-fill) !important; stroke: var(--highlight-stroke) !important; stroke-width: 3; }
-                .region:active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
-                .region.active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
-                .ground { fill: none; stroke: #d6d0c4; stroke-width: 3; stroke-dasharray: 7 8; }
-                .detail { fill: none; stroke: #8b98a5; stroke-width: 2; stroke-linecap: round; }
+                .car-outline{fill:url(#bodyGlow);stroke:#b8ddf5;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+                .blue-line{fill:none;stroke:#77b7e5;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+                .fine-line{fill:none;stroke:#6098c3;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
+                .region{cursor:pointer;outline:none;transition:filter .16s ease,opacity .16s ease}
+                .region:hover,.region:focus-visible{filter:url(#blueGlow);opacity:1}
+                .region:hover .hit,.region:focus-visible .hit{fill:#ffad42;fill-opacity:.28;stroke:#ffb14b;stroke-width:3}
+                .hit{fill:#62b4ed;fill-opacity:.12;stroke:#8bc9f2;stroke-width:2.2;transition:fill .16s ease,stroke .16s ease}
+                .part-label{font:700 12px system-ui,sans-serif;fill:#b8ddf5;letter-spacing:.08em}
               </style>
             </defs>
-            <line class="ground" x1="60" y1="330" x2="740" y2="330" />
-            <circle class="region" data-slug="brakes" cx="220" cy="300" r="45" fill="#dce5ec" stroke="#526274" stroke-width="8" title="Brakes" />
-            <circle class="region" data-slug="suspension" cx="560" cy="300" r="45" fill="#dce5ec" stroke="#526274" stroke-width="8" title="Suspension" />
-            <circle cx="220" cy="300" r="14" fill="#8293a3" />
-            <circle cx="560" cy="300" r="14" fill="#8293a3" />
-            <path d="M 150 290 L 150 270 Q 180 220 260 210 L 300 185 L 320 160 L 520 160 L 540 185 L 570 200 L 670 255 L 690 285 L 690 300 L 150 300 Z" fill="#fffdf8" stroke="#34495e" stroke-width="6" />
-            <path d="M 305 190 L 330 165 L 510 165 L 535 195 Z" fill="#a9d8e8" stroke="#34495e" stroke-width="4" />
-            <path d="M 270 215 L 295 185 L 315 180 L 300 205 Z" fill="#a9d8e8" stroke="#34495e" stroke-width="3" />
-            <ellipse cx="145" cy="275" rx="12" ry="7" fill="#ffd76d" />
-            <ellipse cx="695" cy="275" rx="12" ry="7" fill="#ff9b8d" />
-            <rect class="region" data-slug="cooling" x="155" y="242" width="60" height="40" fill="#e9f3f5" stroke="#64748b" stroke-width="3" title="Cooling" />
-            <path class="region" data-slug="engine" d="M 180 205 L 330 200 L 330 260 L 290 275 L 220 280 L 180 270 Z" fill="#f7d8a5" stroke="#64748b" stroke-width="3" title="Engine" />
-            <rect class="region" data-slug="electrical" x="250" y="220" width="50" height="34" rx="4" fill="#f8e8a9" stroke="#64748b" stroke-width="3" title="Electrical" />
-            <path class="region" data-slug="transmission" d="M 350 240 L 540 235 L 540 285 L 360 290 Z" fill="#d9e8c4" stroke="#64748b" stroke-width="3" title="Transmission" />
-            <path class="region" data-slug="steering" d="M 255 178 L 295 176 L 290 210 L 260 212 Z" fill="#e5dafa" stroke="#64748b" stroke-width="3" title="Steering" />
-            <rect class="region" data-slug="fuel" x="565" y="250" width="95" height="38" rx="4" fill="#f5d5d0" stroke="#64748b" stroke-width="3" title="Fuel" />
-            <line class="detail" x1="330" y1="200" x2="330" y2="260" />
-            <line class="detail" x1="290" y1="275" x2="330" y2="260" />
-            <line class="detail" x1="220" y1="280" x2="290" y2="275" />
-            <line class="detail" x1="180" y1="270" x2="220" y2="280" />
-            <line class="detail" x1="360" y1="290" x2="540" y2="285" />
-            <line class="detail" x1="350" y1="240" x2="540" y2="235" />
+            <rect width="1000" height="560" fill="#071a2e"/>
+            <rect width="1000" height="560" fill="url(#blueGrid)"/>
+            <g opacity=".35" fill="none" stroke="#5790bd" stroke-width="1.2"><circle cx="500" cy="275" r="235"/><circle cx="500" cy="275" r="215" stroke-dasharray="4 10"/><path d="M40 470H960M40 90H960M500 30V520" stroke-dasharray="3 9"/></g>
+            <path d="M72 434H930" stroke="#8bb7d7" stroke-width="2" stroke-dasharray="9 10" opacity=".55"/>
+            <g class="region" data-slug="brakes" aria-label="Brakes">
+              <circle class="hit" cx="232" cy="391" r="58"/><circle class="blue-line" cx="232" cy="391" r="43"/><circle class="fine-line" cx="232" cy="391" r="31"/><circle class="fine-line" cx="232" cy="391" r="12"/>
+              <path class="fine-line" d="M205 375l-9-9m63 50 9 9m-63 0-9 9m63-59 9-9"/><path class="blue-line" d="M269 363q18 6 15 27l-7 18-14-3-5-31z"/>
+            </g>
+            <g class="region" data-slug="suspension" aria-label="Suspension">
+              <path class="hit" d="M668 300l23 8 18 86-22 7z"/><path class="blue-line" d="M681 304l-10 13 22 9-22 9 22 9-22 9 22 9-22 9 22 9"/><path class="fine-line" d="M669 300l35 108m-50-11 64-14"/>
+            </g>
+            <g class="region" data-slug="electrical" aria-label="Electrical system">
+              <rect class="hit" x="302" y="284" width="62" height="42" rx="6"/><path class="blue-line" d="M314 294h15v-7h10v7h15v23h-40z"/><path class="fine-line" d="M333 300v11m-5-5h10"/>
+            </g>
+            <g class="region" data-slug="cooling" aria-label="Cooling system">
+              <rect class="hit" x="248" y="302" width="36" height="67" rx="4"/><path class="blue-line" d="M255 309v52m7-52v52m7-52v52m7-52v52M250 316h32m-32 12h32m-32 12h32m-32 12h32"/>
+            </g>
+            <g class="region" data-slug="engine" aria-label="Engine">
+              <path class="hit" d="M300 326l14-20h72l14 17-7 57h-94z"/><path class="blue-line" d="M315 327v-12h17v-10h37v10h17v12m-66 0v37h56v-37z"/><path class="fine-line" d="M327 337h12v19h-12zm25 0h12v19h-12zm-34 37h61m-49-59v-12m34 12v-12"/>
+              <path class="blue-line" d="M299 347h-17m116 0h17"/>
+            </g>
+            <g class="region" data-slug="steering" aria-label="Steering">
+              <path class="hit" d="M385 240l26 5 20 55-22 8z"/><circle class="blue-line" cx="402" cy="252" r="15"/><circle class="fine-line" cx="402" cy="252" r="5"/><path class="blue-line" d="M402 267l13 29m-13-29-13 29m-9 4h44"/>
+            </g>
+            <g class="region" data-slug="transmission" aria-label="Transmission">
+              <path class="hit" d="M405 337l67-8 34 20-5 39-84 4-23-24z"/><path class="blue-line" d="M416 344l52-6 23 14-4 26-67 4-17-18z"/><circle class="fine-line" cx="449" cy="359" r="12"/><path class="fine-line" d="M449 347v24m-12-12h24m23-15 12-9"/>
+            </g>
+            <g class="region" data-slug="fuel" aria-label="Fuel system">
+              <path class="hit" d="M634 352h79l12 16-8 31h-79l-12-16z"/><path class="blue-line" d="M644 363h61v25h-61z"/><path class="fine-line" d="M705 363l13-12m-67 12v25"/>
+            </g>
+            <g class="region" data-slug="engine" aria-label="Exhaust path">
+              <path class="hit" d="M385 393h270v15H385z"/><path class="blue-line" d="M388 400h263m-230-8v16m185-16v16"/><path class="fine-line" d="M651 400h65"/>
+            </g>
+            <g class="region" data-slug="brakes" aria-label="Rear brakes">
+              <circle class="hit" cx="748" cy="391" r="58"/><circle class="blue-line" cx="748" cy="391" r="43"/><circle class="fine-line" cx="748" cy="391" r="31"/><circle class="fine-line" cx="748" cy="391" r="12"/><path class="blue-line" d="M786 363q18 6 15 27l-7 18-14-3-5-31z"/>
+            </g>
+            <path class="car-outline" d="M112 370l7-53q7-28 47-43l114-37 91-84q18-17 43-17h226q30 0 51 22l81 80 73 36q25 13 31 38l10 58-12 9H112z"/>
+            <path d="M302 238l92-83q13-12 31-12h211q24 0 42 18l67 77z" fill="url(#glassGlow)" stroke="#a9d8f4" stroke-width="3"/>
+            <path class="blue-line" d="M428 145l-5 92m210-92 57 92M302 238h438M520 146v92"/>
+            <path class="fine-line" d="M140 318h120m-112 12h92m545-9h70M164 276l102-32m481 0 84 36"/>
+            <path class="blue-line" d="M115 368h810M151 370q12-65 80-65t81 65m355 0q12-65 80-65t81 65"/>
+            <path class="fine-line" d="M158 291h94m520 0h70M280 250l-18 49m478-49 26 49M294 238l-15 30m466-30 18 31"/>
+            <path d="M113 353h-25m837 0h-20" stroke="#ffb14b" stroke-width="5" stroke-linecap="round"/>
+            <g class="region" data-slug="fuel" aria-label="Fuel filler">
+              <path class="hit" d="M790 267h28v22h-28z"/><path class="fine-line" d="M796 273h16v10h-16z"/>
+            </g>
+            <g fill="none" stroke="#7bb7df" stroke-width="1.3" opacity=".8"><path d="M90 465h820M90 458v14m820-14v14"/><path d="M232 453v15m516-15v15"/></g>
+            <text class="part-label" x="100" y="500">FRONT</text><text class="part-label" x="850" y="500">REAR</text>
+            <text class="part-label" x="500" y="530" text-anchor="middle">REAR-WHEEL-DRIVE CUTAWAY · NOT TO SCALE</text>
           </svg>
           <p class="illustration-caption">A simplified peek inside a car — not to scale, but ready to explore.</p>
         </div>
