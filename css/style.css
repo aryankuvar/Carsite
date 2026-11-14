@@ -1,0 +1,612 @@
+/* ==========================================================================
+   How Cars Work — Styles
+   Automotive-inspired, restrained palette.
+   ========================================================================== */
+
+:root {
+  --bg: #0f172a;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.12);
+  --accent-stroke: rgba(245, 158, 11, 0.5);
+  --highlight-fill: rgba(245, 158, 11, 0.2);
+  --highlight-stroke: rgba(245, 158, 11, 0.7);
+  --text: #0f172a;
+  --text-soft: #334155;
+  --muted: #64748b;
+  --divider: #e2e8f0;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --max-width: 980px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------------ Layout */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: var(--radius);
+}
+
+/* ------------------------------------------------------------------ Header */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--divider);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.5rem;
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand mark {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-soft);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------------ Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--divider);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.2s ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #d97706;
+  border-color: #d97706;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ Page shell */
+.page {
+  padding: 3rem 0 5rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.section-lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 42ch;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid var(--divider);
+  margin: 2rem 0;
+}
+
+/* ------------------------------------------------------------------ Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+  color: var(--text-soft);
+}
+
+.card p {
+  color: var(--text-soft);
+  margin-bottom: 0.75rem;
+}
+
+.card ul {
+  list-style: disc;
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  color: var(--text-soft);
+}
+
+.card ul li {
+  margin-bottom: 0.35rem;
+}
+
+.image-wrap {
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.image-placeholder {
+  background: var(--surface-soft);
+  border: 1px dashed var(--divider);
+  border-radius: var(--radius);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------------ Homepage (SVG car) */
+.hero {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.hero-svg-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  background: var(--surface);
+}
+
+.car-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.region {
+  cursor: pointer;
+  transition: fill 0.15s ease, stroke 0.15s ease;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.region:hover {
+  fill: var(--highlight-fill) !important;
+  stroke: var(--highlight-stroke) !important;
+  stroke-width: 3;
+}
+
+/* Tap fallback on mobile: show highlight when active/tapped */
+.region:active {
+  fill: var(--highlight-fill);
+  stroke: var(--highlight-stroke);
+  stroke-width: 3;
+}
+
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+  max-width: 340px;
+}
+
+.info-box.hidden {
+  display: none;
+}
+
+.info-box .sys-name {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.info-box .sys-desc {
+  font-size: 0.92rem;
+  color: var(--text-soft);
+}
+
+.click-hint {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.system-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.875rem;
+}
+
+.system-chip {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.system-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.system-chip:active {
+  transform: translateY(1px);
+}
+
+/* ------------------------------------------------------------------ System page */
+.system-hero {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .system-hero {
+    grid-template-columns: 1fr 320px;
+    align-items: start;
+  }
+}
+
+.system-intro p {
+  color: var(--text-soft);
+}
+
+.system-components .card h3 {
+  margin-top: 0;
+}
+
+.component-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.component-card {
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: var(--surface);
+  transition: border-color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.component-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.component-card:active {
+  transform: translateY(0);
+}
+
+.component-card .comp-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.component-card .comp-slug {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ Component page */
+.component-header {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.component-header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+
+.component-header .comp-system {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.component-header p {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+}
+
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-group h4 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field-group p {
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.connections-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.connection-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--accent-stroke);
+  background: var(--accent-soft);
+  color: var(--text);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.connection-chip:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+.connection-chip::before {
+  content: "\2192";
+  font-size: 0.7rem;
+}
+
+/* ------------------------------------------------------------------ Credits */
+.credits-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.credits-table th,
+.credits-table td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--divider);
+}
+
+.credits-table th {
+  background: var(--surface-soft);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.credits-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.note {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-stroke);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.note b {
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------ Footer */
+.site-footer {
+  border-top: 1px solid var(--divider);
+  padding: 2.5rem 0;
+  margin-top: 3rem;
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ Responsive */
+@media (max-width: 640px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    gap: 1.5rem;
+  }
+
+  .info-box {
+    max-width: 100%;
+  }
+
+  .system-hero {
+    padding: 1.25rem;
+  }
+
+  .component-header {
+    padding: 1.25rem;
+  }
+
+  .site-footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Ensure tap targets are large enough on mobile */
+  .region, .system-chip, .component-card, .connection-chip {
+    min-height: 44px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

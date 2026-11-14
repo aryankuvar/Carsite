@@ -1,0 +1,444 @@
+{
+  "systems": [
+    {
+      "id": "engine",
+      "name": "Engine",
+      "slug": "engine",
+      "description": "Converts fuel into the rotational power that moves the car.",
+      "intro": "The engine is the heart of the car. It burns a fuel-air mixture to create pressure that pushes pistons, which rotate a crankshaft and ultimately turn the wheels.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Inline-four_engine.svg",
+      "imageAlt": "Inline four-cylinder engine diagram",
+      "components": [
+        {
+          "id": "crankshaft",
+          "name": "Crankshaft",
+          "slug": "crankshaft",
+          "definition": "A rotating shaft that converts the up-and-down (reciprocating) motion of the pistons into rotational torque.",
+          "purpose": "Transforms piston linear motion into rotational force delivered to the transmission.",
+          "location": "Inside the engine block, running along the lower part of the engine.",
+          "howItWorks": "Combustion pushes each piston down; the connecting rod forces the crankshaft's offset throws to rotate, turning linear motion into smooth rotation.",
+          "connections": ["piston", "camshaft", "flywheel"],
+          "failure": "The engine will not turn over, or you may hear violent knocking, lose power, or suffer catastrophic engine damage."
+        },
+        {
+          "id": "piston",
+          "name": "Piston",
+          "slug": "piston",
+          "definition": "A cylindrical plug that slides up and down inside the engine cylinder, transferring combustion force to the connecting rod.",
+          "purpose": "Captures the pressure of burning fuel-air mixture and turns it into linear motion.",
+          "location": "Inside each cylinder of the engine block.",
+          "howItWorks": "The spark plug ignites the compressed mixture; the expanding gas pushes the piston down, which pushes the connecting rod and rotates the crankshaft.",
+          "connections": ["crankshaft", "camshaft"],
+          "failure": "Loss of compression, misfire, oil burning, or a seized engine."
+        },
+        {
+          "id": "camshaft",
+          "name": "Camshaft",
+          "slug": "camshaft",
+          "definition": "A shaft with egg-shaped lobes that open and close the engine's intake and exhaust valves at the right time.",
+          "purpose": "Controls when valves open and close so air/fuel enters and exhaust leaves.",
+          "location": "In the cylinder head (overhead cam) or inside the engine block (pushrod engines).",
+          "howItWorks": "The camshaft rotates (driven by the crankshaft via a belt or chain), and its lobes push on valve lifters to open valves while springs close them.",
+          "connections": ["crankshaft", "piston"],
+          "failure": "Poor performance, misfires, a ticking noise, or an engine that will not start."
+        },
+        {
+          "id": "flywheel",
+          "name": "Flywheel",
+          "slug": "flywheel",
+          "definition": "A heavy rotating wheel bolted to the crankshaft that stores rotational energy.",
+          "purpose": "Smooths out power pulses and provides a surface for the clutch or torque converter.",
+          "location": "At the rear of the crankshaft, between the engine and the transmission.",
+          "howItWorks": "Its inertia keeps the crankshaft rotating between power strokes, making rotation smooth and helping the engine idle steadily.",
+          "connections": ["crankshaft", "clutch", "torque-converter"],
+          "failure": "Difficulty starting, clutch chatter, vibration, or a grinding starter motor."
+        }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Transmission",
+      "slug": "transmission",
+      "description": "Matches engine speed to wheel speed through gears.",
+      "intro": "The transmission sits between the engine and the wheels. Using the power chain engine → flywheel → clutch/torque converter → gearbox → driveshaft → differential → axles → wheels, it lets the engine run efficiently while the car moves at different speeds.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Manual_transmission.svg",
+      "imageAlt": "Manual gearbox diagram",
+      "components": [
+        {
+          "id": "gearbox",
+          "name": "Gearbox",
+          "slug": "gearbox",
+          "definition": "A set of gears that lets the engine operate at efficient speeds while the wheels turn at different speeds.",
+          "purpose": "Multiplies torque at low speed and allows efficient cruising at high speed.",
+          "location": "Behind the engine, bolted to it, before the driveshaft.",
+          "howItWorks": "Different gear ratios are selected (manually or automatically) so engine speed and wheel speed stay matched.",
+          "connections": ["clutch", "torque-converter", "driveshaft"],
+          "failure": "Grinding gears, slipping, no power to the wheels, or a whining noise."
+        },
+        {
+          "id": "clutch",
+          "name": "Clutch",
+          "slug": "clutch",
+          "definition": "A friction device that connects and disconnects the engine from the gearbox.",
+          "purpose": "Lets you change gears and stop without stalling the engine.",
+          "location": "Between the flywheel and the gearbox (manual cars).",
+          "howItWorks": "Pressing the clutch pedal separates the clutch disc from the flywheel, interrupting power so you can shift; releasing it reconnects the engine to the gearbox.",
+          "connections": ["flywheel", "gearbox"],
+          "failure": "Slipping (engine revs but the car does not accelerate), shudder, or hard shifting."
+        },
+        {
+          "id": "torque-converter",
+          "name": "Torque Converter",
+          "slug": "torque-converter",
+          "definition": "A fluid coupling that connects the engine to an automatic gearbox.",
+          "purpose": "Transfers engine power to the gearbox without a mechanical clutch and multiplies torque at low speed.",
+          "location": "Between the engine flexplate and the automatic gearbox.",
+          "howItWorks": "Engine-driven fluid pushes a turbine connected to the gearbox, allowing smooth power transfer and letting the car idle without stalling.",
+          "connections": ["flywheel", "gearbox"],
+          "failure": "Slipping, overheating, shudder, or poor acceleration."
+        },
+        {
+          "id": "driveshaft",
+          "name": "Driveshaft",
+          "slug": "driveshaft",
+          "definition": "A rotating tube that carries torque from the gearbox to the differential.",
+          "purpose": "Delivers power from the transmission to the axle.",
+          "location": "Runs underneath the car from the gearbox to the differential.",
+          "howItWorks": "The gearbox output spins the driveshaft, which turns the differential's pinion gear.",
+          "connections": ["gearbox"],
+          "failure": "Vibration at speed, clunking when shifting, or loss of drive."
+        }
+      ]
+    },
+    {
+      "id": "brakes",
+      "name": "Brakes",
+      "slug": "brakes",
+      "description": "Slows and stops the car using friction and hydraulic pressure.",
+      "intro": "The brake system converts the car's kinetic energy into heat through friction. Pressing the pedal sends pressurized brake fluid to clamps at each wheel that squeeze pads against rotating discs.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Disc_brake.svg",
+      "imageAlt": "Disc brake diagram",
+      "components": [
+        {
+          "id": "brake-disc",
+          "name": "Brake Disc",
+          "slug": "brake-disc",
+          "definition": "A metal rotor that rotates with the wheel and is squeezed by brake pads.",
+          "purpose": "Provides a surface for friction to convert motion into heat and slow the car.",
+          "location": "Inside each wheel, behind the brake pad and caliper.",
+          "howItWorks": "Hydraulic pressure clamps pads against the spinning disc; friction slows the disc and therefore the wheel.",
+          "connections": ["brake-pad", "caliper"],
+          "failure": "A pulsating pedal, squealing, or longer stopping distances."
+        },
+        {
+          "id": "brake-pad",
+          "name": "Brake Pad",
+          "slug": "brake-pad",
+          "definition": "A friction block that presses against the brake disc.",
+          "purpose": "Creates the friction that slows the rotating disc.",
+          "location": "Inside the caliper, on both sides of the brake disc.",
+          "howItWorks": "When you brake, the caliper pushes the pads against the disc; the friction material converts kinetic energy into heat.",
+          "connections": ["brake-disc", "caliper"],
+          "failure": "Squealing or grinding, longer stops, or reduced braking."
+        },
+        {
+          "id": "caliper",
+          "name": "Caliper",
+          "slug": "caliper",
+          "definition": "A hydraulic clamp that squeezes the brake pads against the disc.",
+          "purpose": "Applies force to the pads when you press the brake pedal.",
+          "location": "Mounted over the brake disc at each wheel.",
+          "howItWorks": "Brake fluid pressure pushes caliper pistons, which press the pads onto the disc.",
+          "connections": ["brake-disc", "brake-pad", "master-cylinder"],
+          "failure": "The car pulls to one side, reduced braking, or leaking fluid."
+        },
+        {
+          "id": "master-cylinder",
+          "name": "Master Cylinder",
+          "slug": "master-cylinder",
+          "definition": "A hydraulic pump that converts pedal force into brake fluid pressure.",
+          "purpose": "Sends pressurized fluid to the brakes at each wheel.",
+          "location": "On the firewall, connected to the brake pedal and brake booster.",
+          "howItWorks": "Pressing the pedal pushes a piston in the master cylinder, pressurizing brake fluid through lines to each wheel.",
+          "connections": ["caliper"],
+          "failure": "A spongy pedal, brake failure, or fluid leaks."
+        }
+      ]
+    },
+    {
+      "id": "suspension",
+      "name": "Suspension",
+      "slug": "suspension",
+      "description": "Absorbs bumps and keeps the tires on the road.",
+      "intro": "The suspension connects the car body to the wheels. It absorbs road impacts, supports the vehicle's weight, and keeps the tires in contact with the road so you can steer and brake safely.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/MacPherson_strut.svg",
+      "imageAlt": "MacPherson strut suspension diagram",
+      "components": [
+        {
+          "id": "shock-absorber",
+          "name": "Shock Absorber",
+          "slug": "shock-absorber",
+          "definition": "A hydraulic damper that controls suspension movement.",
+          "purpose": "Stops the car from bouncing after bumps and keeps tires on the road.",
+          "location": "Between the car body and the wheel assembly at each corner.",
+          "howItWorks": "A piston moves through oil inside the shock, converting suspension movement into heat and damping oscillations.",
+          "connections": ["coil-spring", "control-arm"],
+          "failure": "A bouncy ride, poor handling, or uneven tire wear."
+        },
+        {
+          "id": "coil-spring",
+          "name": "Coil Spring",
+          "slug": "coil-spring",
+          "definition": "A heavy spring that supports the car's weight and absorbs bumps.",
+          "purpose": "Holds the car up and absorbs road impacts.",
+          "location": "Around or near the shock absorber at each wheel.",
+          "howItWorks": "It compresses over bumps and rebounds, storing and releasing energy to smooth the ride.",
+          "connections": ["shock-absorber", "control-arm"],
+          "failure": "A sagging car, harsh ride, or bottoming out."
+        },
+        {
+          "id": "control-arm",
+          "name": "Control Arm",
+          "slug": "control-arm",
+          "definition": "A pivoted link that connects the wheel hub to the car chassis.",
+          "purpose": "Allows the wheel to move up and down while staying aligned.",
+          "location": "Between the wheel knuckle and the vehicle frame.",
+          "howItWorks": "It pivots on bushings as the wheel travels over bumps, keeping wheel position controlled.",
+          "connections": ["shock-absorber", "coil-spring", "anti-roll-bar"],
+          "failure": "Clunking, loose steering, or uneven tire wear."
+        },
+        {
+          "id": "anti-roll-bar",
+          "name": "Anti-Roll Bar",
+          "slug": "anti-roll-bar",
+          "definition": "A torsion bar linking the left and right suspension.",
+          "purpose": "Reduces body roll in corners.",
+          "location": "Across the front or rear axle, connecting both sides.",
+          "howItWorks": "When one side compresses in a turn, the bar twists and resists, keeping the car flatter.",
+          "connections": ["control-arm"],
+          "failure": "Excessive body roll or clunking over bumps."
+        }
+      ]
+    },
+    {
+      "id": "steering",
+      "name": "Steering",
+      "slug": "steering",
+      "description": "Lets the driver control the direction of the front wheels.",
+      "intro": "The steering system turns the rotation of the steering wheel into left-right movement of the front wheels. Most cars use a rack-and-pinion setup, often with power assistance.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Rack_and_pinion_steering.svg",
+      "imageAlt": "Rack and pinion steering diagram",
+      "components": [
+        {
+          "id": "steering-rack",
+          "name": "Steering Rack",
+          "slug": "steering-rack",
+          "definition": "A gearbox that turns the rotation of the steering wheel into side-to-side movement of the wheels.",
+          "purpose": "Converts steering wheel turns into wheel direction.",
+          "location": "Behind the front wheels, linking the steering column to the tie rods.",
+          "howItWorks": "Turning the steering wheel rotates a pinion gear that moves the rack left or right, pushing the tie rods.",
+          "connections": ["tie-rod", "steering-column"],
+          "failure": "Loose steering, clunking, leaking fluid, or uneven tire wear."
+        },
+        {
+          "id": "tie-rod",
+          "name": "Tie Rod",
+          "slug": "tie-rod",
+          "definition": "A slender rod that links the steering rack to the steering knuckle.",
+          "purpose": "Pushes or pulls the wheel to turn it.",
+          "location": "Between the steering rack and each front wheel.",
+          "howItWorks": "The rack moves the tie rod, which pivots the knuckle and turns the wheel.",
+          "connections": ["steering-rack"],
+          "failure": "Loose steering, wandering, clunking, or tire wear."
+        },
+        {
+          "id": "steering-column",
+          "name": "Steering Column",
+          "slug": "steering-column",
+          "definition": "The shaft that carries your steering-wheel input to the steering rack.",
+          "purpose": "Transfers driver input from the wheel to the steering gear.",
+          "location": "From the steering wheel down to the steering rack.",
+          "howItWorks": "A shaft (often collapsible for safety) rotates with the wheel and turns the rack's pinion gear.",
+          "connections": ["steering-rack", "power-steering-pump"],
+          "failure": "Stiff steering, play in the wheel, or unusual noises."
+        },
+        {
+          "id": "power-steering-pump",
+          "name": "Power Steering Pump",
+          "slug": "power-steering-pump",
+          "definition": "A hydraulic pump that makes steering easier at low speed.",
+          "purpose": "Reduces the effort needed to turn the steering wheel.",
+          "location": "Driven by the engine belt, near the front of the engine.",
+          "howItWorks": "It pressurizes power-steering fluid that assists the rack in moving the wheels.",
+          "connections": ["steering-column"],
+          "failure": "Heavy steering, a whining noise, or fluid leaks."
+        }
+      ]
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "slug": "electrical",
+      "description": "Generates, stores, and distributes electricity throughout the car.",
+      "intro": "The electrical system powers everything from starting the engine to lights, windows, and computers. The battery stores energy; the alternator recharges it while the engine runs.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Alternator.svg",
+      "imageAlt": "Car alternator diagram",
+      "components": [
+        {
+          "id": "battery",
+          "name": "Battery",
+          "slug": "battery",
+          "definition": "A rechargeable battery that stores electrical energy.",
+          "purpose": "Starts the engine and powers electronics when the engine is off.",
+          "location": "Usually under the bonnet or in the boot.",
+          "howItWorks": "Chemical reactions provide DC power to the starter and accessories; the alternator recharges it while driving.",
+          "connections": ["alternator", "starter-motor"],
+          "failure": "Car will not start, dim lights, or dead electrical accessories."
+        },
+        {
+          "id": "alternator",
+          "name": "Alternator",
+          "slug": "alternator",
+          "definition": "A generator driven by the engine that produces electricity.",
+          "purpose": "Recharges the battery and powers the electrical system while driving.",
+          "location": "Bolted to the engine, driven by a belt.",
+          "howItWorks": "Engine rotation spins the alternator rotor, creating AC current that is converted to DC for the car.",
+          "connections": ["battery"],
+          "failure": "Dead battery, a warning light, dimming lights, or the car stalling."
+        },
+        {
+          "id": "starter-motor",
+          "name": "Starter Motor",
+          "slug": "starter-motor",
+          "definition": "An electric motor that cranks the engine to start it.",
+          "purpose": "Turns the engine over so it can start running on its own.",
+          "location": "Bolted to the engine, engaging the flywheel ring gear.",
+          "howItWorks": "Battery power spins the starter motor, which engages the flywheel and rotates the crankshaft until combustion begins.",
+          "connections": ["battery"],
+          "failure": "A clicking noise, engine will not crank, or no start."
+        },
+        {
+          "id": "spark-plug",
+          "name": "Spark Plug",
+          "slug": "spark-plug",
+          "definition": "An electrode that creates a spark to ignite the fuel-air mixture.",
+          "purpose": "Starts combustion inside each cylinder.",
+          "location": "In the cylinder head, one per cylinder.",
+          "howItWorks": "High voltage jumps across a small gap, igniting the compressed mixture and driving the piston down.",
+          "connections": [],
+          "failure": "Misfire, rough idle, poor fuel economy, or hard starting."
+        }
+      ]
+    },
+    {
+      "id": "fuel",
+      "name": "Fuel",
+      "slug": "fuel",
+      "description": "Stores and delivers fuel to the engine.",
+      "intro": "The fuel system stores petrol or diesel and delivers it to the engine in a precisely controlled amount. Fuel travels from the tank through a pump and filter to the injectors, which spray it into the engine.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Fuel_injector.svg",
+      "imageAlt": "Fuel injector diagram",
+      "components": [
+        {
+          "id": "fuel-tank",
+          "name": "Fuel Tank",
+          "slug": "fuel-tank",
+          "definition": "A sealed container that holds petrol or diesel.",
+          "purpose": "Stores fuel for the engine.",
+          "location": "Under the rear of the car, often beneath the back seat or trunk.",
+          "howItWorks": "It holds fuel until the pump draws it through lines to the engine.",
+          "connections": ["fuel-pump", "fuel-filter"],
+          "failure": "A fuel smell, leaks, or running out of fuel."
+        },
+        {
+          "id": "fuel-pump",
+          "name": "Fuel Pump",
+          "slug": "fuel-pump",
+          "definition": "A pump that pushes fuel from the tank to the engine.",
+          "purpose": "Delivers fuel under pressure to the injectors.",
+          "location": "Usually inside the fuel tank.",
+          "howItWorks": "An electric motor spins an impeller that pushes fuel through the fuel lines.",
+          "connections": ["fuel-tank", "fuel-injector"],
+          "failure": "Engine cranks but will not start, stalling, or loss of power."
+        },
+        {
+          "id": "fuel-injector",
+          "name": "Fuel Injector",
+          "slug": "fuel-injector",
+          "definition": "A nozzle that sprays fuel into the engine's intake or cylinder.",
+          "purpose": "Delivers a precise amount of fuel for combustion.",
+          "location": "In the intake manifold or directly in each cylinder (direct injection).",
+          "howItWorks": "The ECU opens the injector briefly; pressurized fuel sprays as a fine mist and mixes with air.",
+          "connections": ["fuel-pump"],
+          "failure": "Misfire, poor economy, rough idle, or no start."
+        },
+        {
+          "id": "fuel-filter",
+          "name": "Fuel Filter",
+          "slug": "fuel-filter",
+          "definition": "A screen that removes dirt and rust from the fuel.",
+          "purpose": "Protects the injectors and engine from contaminants.",
+          "location": "In the fuel line between the tank and the engine.",
+          "howItWorks": "Fuel passes through a filter element that traps particles before they reach the injectors.",
+          "connections": ["fuel-tank", "fuel-pump"],
+          "failure": "Loss of power, stalling, or hard starting."
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "name": "Cooling",
+      "slug": "cooling",
+      "description": "Keeps the engine at the right operating temperature.",
+      "intro": "The cooling system carries heat away from the engine so it does not overheat. Coolant circulates through the engine block, absorbs heat, and releases it to the air at the radiator.",
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Radiator.svg",
+      "imageAlt": "Car radiator diagram",
+      "components": [
+        {
+          "id": "radiator",
+          "name": "Radiator",
+          "slug": "radiator",
+          "definition": "A heat exchanger that cools the engine coolant.",
+          "purpose": "Removes heat from the coolant so the engine stays at the right temperature.",
+          "location": "At the front of the car, behind the grille.",
+          "howItWorks": "Hot coolant flows through thin tubes; airflow from driving or a fan cools it before it returns to the engine.",
+          "connections": ["water-pump", "thermostat", "coolant"],
+          "failure": "Overheating, coolant leaks, or steam under the bonnet."
+        },
+        {
+          "id": "water-pump",
+          "name": "Water Pump",
+          "slug": "water-pump",
+          "definition": "A pump that circulates coolant through the engine and radiator.",
+          "purpose": "Keeps coolant moving so heat is carried away from the engine.",
+          "location": "Bolted to the engine block, driven by a belt.",
+          "howItWorks": "An impeller spins, pushing coolant through the engine block, hoses, and radiator in a continuous loop.",
+          "connections": ["radiator", "thermostat"],
+          "failure": "Overheating, coolant leaks, or a whining noise."
+        },
+        {
+          "id": "thermostat",
+          "name": "Thermostat",
+          "slug": "thermostat",
+          "definition": "A temperature-controlled valve that regulates coolant flow.",
+          "purpose": "Helps the engine warm up quickly and stay at optimal temperature.",
+          "location": "Between the engine and radiator, in a housing.",
+          "howItWorks": "When cold it stays closed so the engine warms fast; when hot it opens to let coolant flow to the radiator.",
+          "connections": ["radiator", "water-pump", "coolant"],
+          "failure": "Overheating or overcooling, or an erratic temperature gauge."
+        },
+        {
+          "id": "coolant",
+          "name": "Coolant",
+          "slug": "coolant",
+          "definition": "A mixture of water and antifreeze that carries heat away from the engine.",
+          "purpose": "Transfers engine heat to the radiator and prevents freezing or boiling.",
+          "location": "Circulates through the engine, hoses, and radiator.",
+          "howItWorks": "It absorbs heat in the engine, carries it to the radiator, releases it to the air, and returns.",
+          "connections": ["radiator", "thermostat"],
+          "failure": "Overheating, corrosion, or freezing in cold weather."
+        }
+      ]
+    }
+  ]
+}

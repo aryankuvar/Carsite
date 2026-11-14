@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Cars Work — Explore Car Systems</title>
+  <meta name="description" content="An intermediate guide to how cars work. Explore 8 car systems through an interactive illustration." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">How <mark>Cars</mark> Work</a>
+      <nav class="nav-links">
+        <a href="credits.html">Credits</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page container">
+    <div class="hero">
+      <div class="hero-svg-wrap" role="region" aria-label="Car illustration with clickable systems">
+        <svg class="car-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-label="Side profile of a car with highlighted system regions">
+          <defs>
+            <style>
+              .region { cursor: pointer; transition: fill 0.15s ease, stroke 0.15s ease; stroke-linejoin: round; stroke-linecap: round; }
+              .region:hover { fill: var(--highlight-fill) !important; stroke: var(--highlight-stroke) !important; stroke-width: 3; }
+              .region:active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
+              .region.active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
+              .ground { fill: none; stroke: #cbd5e1; stroke-width: 2; }
+              .detail { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+            </style>
+          </defs>
+
+          <!-- Ground -->
+          <line class="ground" x1="60" y1="330" x2="740" y2="330" />
+
+          <!-- Wheels -->
+          <circle class="region" data-slug="brakes" cx="220" cy="300" r="45" fill="#e2e8f0" stroke="#475569" stroke-width="8" title="Brakes" />
+          <circle class="region" data-slug="suspension" cx="560" cy="300" r="45" fill="#e2e8f0" stroke="#475569" stroke-width="8" title="Suspension" />
+          <circle cx="220" cy="300" r="14" fill="#64748b" />
+          <circle cx="560" cy="300" r="14" fill="#64748b" />
+
+          <!-- Body outline -->
+          <path d="M 150 290 L 150 270 Q 180 220 260 210 L 300 185 L 320 160 L 520 160 L 540 185 L 570 200 L 670 255 L 690 285 L 690 300 L 150 300 Z" fill="#ffffff" stroke="#334155" stroke-width="6" />
+
+          <!-- Windows -->
+          <path d="M 305 190 L 330 165 L 510 165 L 535 195 Z" fill="#bfdbfe" stroke="#334155" stroke-width="4" />
+          <path d="M 270 215 L 295 185 L 315 180 L 300 205 Z" fill="#bfdbfe" stroke="#334155" stroke-width="3" />
+
+          <!-- Lights -->
+          <ellipse cx="145" cy="275" rx="12" ry="7" fill="#fef3c7" />
+          <ellipse cx="695" cy="275" rx="12" ry="7" fill="#fca5a5" />
+
+          <!-- Grille / Radiator (Cooling) -->
+          <rect class="region" data-slug="cooling" x="155" y="242" width="60" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="3" title="Cooling" />
+
+          <!-- Engine block (Engine) -->
+          <path class="region" data-slug="engine" d="M 180 205 L 330 200 L 330 260 L 290 275 L 220 280 L 180 270 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Engine" />
+
+          <!-- Battery (Electrical) -->
+          <rect class="region" data-slug="electrical" x="250" y="220" width="50" height="34" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Electrical" />
+
+          <!-- Gearbox / Transmission (Transmission) -->
+          <path class="region" data-slug="transmission" d="M 350 240 L 540 235 L 540 285 L 360 290 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Transmission" />
+
+          <!-- Steering column (Steering) -->
+          <path class="region" data-slug="steering" d="M 255 178 L 295 176 L 290 210 L 260 212 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Steering" />
+
+          <!-- Fuel tank (Fuel) -->
+          <rect class="region" data-slug="fuel" x="565" y="250" width="95" height="38" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Fuel" />
+
+          <!-- Detail lines -->
+          <line class="detail" x1="330" y1="200" x2="330" y2="260" />
+          <line class="detail" x1="290" y1="275" x2="330" y2="260" />
+          <line class="detail" x1="220" y1="280" x2="290" y2="275" />
+          <line class="detail" x1="180" y1="270" x2="220" y2="280" />
+          <line class="detail" x1="360" y1="290" x2="540" y2="285" />
+          <line class="detail" x1="350" y1="240" x2="540" y2="235" />
+        </svg>
+      </div>
+
+      <div class="hero-info">
+        <div class="info-box hidden" id="info-box">
+          <div class="sys-name" id="info-name">System name</div>
+          <div class="sys-desc" id="info-desc">One-line description goes here.</div>
+          <a id="info-link" class="btn btn--primary" style="margin-top:0.75rem; width:fit-content;">Open system page &rarr;</a>
+        </div>
+        <p class="click-hint" id="tap-hint" style="display:none;">Tap a region to highlight it</p>
+        <div class="system-grid" id="system-grid" style="margin-top:1rem;">
+          <!-- chips rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section>
+      <h2 class="section-title">The power chain</h2>
+      <p class="section-lead">Power flows through the car in a fixed order. Understanding this chain is key to understanding how the parts work together.</p>
+      <div class="card">
+        <p style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; letter-spacing: 0.08em; color: var(--muted);">
+          Engine &rarr; Flywheel &rarr; Clutch / Torque converter &rarr; Gearbox &rarr; Driveshaft &rarr; Differential &rarr; Axles &rarr; Wheels
+        </p>
+        <p style="color: var(--text-soft); font-size: 0.95rem;">Never skip a step — each part passes power to the next. Click a system above to explore its components.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 How Cars Work — Educational project</span>
+      <span>Free &middot; Static &middot; No tracking</span>
+    </div>
+  </footer>
+
+  <script src="js/interactions.js"></script>
+</body>
+</html>
