@@ -116,7 +116,7 @@
       "slug": "brakes",
       "description": "Slows and stops the car using friction and hydraulic pressure.",
       "intro": "The brake system converts the car's kinetic energy into heat through friction. Pressing the pedal sends pressurized brake fluid to clamps at each wheel that squeeze pads against rotating discs.",
-      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Disc_brake.svg",
+      "image": "https://commons.wikimedia.org/wiki/File:Disc_brake.svg",
       "imageAlt": "Disc brake diagram",
       "components": [
         {
