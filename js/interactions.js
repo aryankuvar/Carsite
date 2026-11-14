@@ -21,7 +21,6 @@
     regions.forEach((region) => {
       const selected = region.dataset.slug === slug;
       region.classList.toggle("active", selected);
-      region.setAttribute("aria-pressed", String(selected));
     });
 
     systemGrid?.querySelectorAll(".system-chip").forEach((chip) => {
@@ -55,6 +54,11 @@
       region.addEventListener("mouseenter", () => selectSystem(slug));
       region.addEventListener("focus", () => selectSystem(slug));
       region.addEventListener("click", () => {
+        const isTouchInput = window.matchMedia("(hover: none)").matches;
+        if (isTouchInput && activeSlug !== slug) {
+          selectSystem(slug);
+          return;
+        }
         window.location.href = `system.html?slug=${encodeURIComponent(slug)}`;
       });
       region.addEventListener("keydown", (event) => {
