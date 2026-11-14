@@ -3,115 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How Cars Work — Explore Car Systems</title>
-  <meta name="description" content="An intermediate guide to how cars work. Explore 8 car systems through an interactive illustration." />
+  <meta name="theme-color" content="#fff9ed" />
+  <title>How Cars Work — Learn by Exploring</title>
+  <meta name="description" content="Pop the hood and explore the eight systems that make a car move, stop, turn and stay cool." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
   <header class="site-header">
     <div class="container">
-      <a href="index.html" class="brand">How <mark>Cars</mark> Work</a>
-      <nav class="nav-links">
+      <a href="index.html" class="brand"><span class="brand-mark">HW</span><span>How <mark>Cars</mark> Work</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#explore">Explore the car</a>
+        <a href="#power-chain">How power moves</a>
         <a href="credits.html">Credits</a>
       </nav>
     </div>
   </header>
 
   <main class="page container">
-    <div class="hero">
-      <div class="hero-svg-wrap" role="region" aria-label="Car illustration with clickable systems">
-        <svg class="car-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-label="Side profile of a car with highlighted system regions">
-          <defs>
-            <style>
-              .region { cursor: pointer; transition: fill 0.15s ease, stroke 0.15s ease; stroke-linejoin: round; stroke-linecap: round; }
-              .region:hover { fill: var(--highlight-fill) !important; stroke: var(--highlight-stroke) !important; stroke-width: 3; }
-              .region:active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
-              .region.active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
-              .ground { fill: none; stroke: #cbd5e1; stroke-width: 2; }
-              .detail { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
-            </style>
-          </defs>
-
-          <!-- Ground -->
-          <line class="ground" x1="60" y1="330" x2="740" y2="330" />
-
-          <!-- Wheels -->
-          <circle class="region" data-slug="brakes" cx="220" cy="300" r="45" fill="#e2e8f0" stroke="#475569" stroke-width="8" title="Brakes" />
-          <circle class="region" data-slug="suspension" cx="560" cy="300" r="45" fill="#e2e8f0" stroke="#475569" stroke-width="8" title="Suspension" />
-          <circle cx="220" cy="300" r="14" fill="#64748b" />
-          <circle cx="560" cy="300" r="14" fill="#64748b" />
-
-          <!-- Body outline -->
-          <path d="M 150 290 L 150 270 Q 180 220 260 210 L 300 185 L 320 160 L 520 160 L 540 185 L 570 200 L 670 255 L 690 285 L 690 300 L 150 300 Z" fill="#ffffff" stroke="#334155" stroke-width="6" />
-
-          <!-- Windows -->
-          <path d="M 305 190 L 330 165 L 510 165 L 535 195 Z" fill="#bfdbfe" stroke="#334155" stroke-width="4" />
-          <path d="M 270 215 L 295 185 L 315 180 L 300 205 Z" fill="#bfdbfe" stroke="#334155" stroke-width="3" />
-
-          <!-- Lights -->
-          <ellipse cx="145" cy="275" rx="12" ry="7" fill="#fef3c7" />
-          <ellipse cx="695" cy="275" rx="12" ry="7" fill="#fca5a5" />
-
-          <!-- Grille / Radiator (Cooling) -->
-          <rect class="region" data-slug="cooling" x="155" y="242" width="60" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="3" title="Cooling" />
-
-          <!-- Engine block (Engine) -->
-          <path class="region" data-slug="engine" d="M 180 205 L 330 200 L 330 260 L 290 275 L 220 280 L 180 270 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Engine" />
-
-          <!-- Battery (Electrical) -->
-          <rect class="region" data-slug="electrical" x="250" y="220" width="50" height="34" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Electrical" />
-
-          <!-- Gearbox / Transmission (Transmission) -->
-          <path class="region" data-slug="transmission" d="M 350 240 L 540 235 L 540 285 L 360 290 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Transmission" />
-
-          <!-- Steering column (Steering) -->
-          <path class="region" data-slug="steering" d="M 255 178 L 295 176 L 290 210 L 260 212 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Steering" />
-
-          <!-- Fuel tank (Fuel) -->
-          <rect class="region" data-slug="fuel" x="565" y="250" width="95" height="38" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="3" title="Fuel" />
-
-          <!-- Detail lines -->
-          <line class="detail" x1="330" y1="200" x2="330" y2="260" />
-          <line class="detail" x1="290" y1="275" x2="330" y2="260" />
-          <line class="detail" x1="220" y1="280" x2="290" y2="275" />
-          <line class="detail" x1="180" y1="270" x2="220" y2="280" />
-          <line class="detail" x1="360" y1="290" x2="540" y2="285" />
-          <line class="detail" x1="350" y1="240" x2="540" y2="235" />
-        </svg>
+    <section class="welcome">
+      <div class="welcome-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR FRIENDLY GUIDE UNDER THE HOOD</p>
+        <h1>Cars are more than<br /><span>four wheels.</span></h1>
+        <p class="welcome-lead">Ever wondered what actually happens when you turn the key, hit the brakes or take a sharp turn? Let's pull a car apart — without needing a toolbox.</p>
+        <a class="btn btn--primary welcome-cta" href="#explore">Let's explore <span aria-hidden="true">↓</span></a>
+        <div class="welcome-note"><span aria-hidden="true">✳</span> 8 systems · 32 components · zero boring lectures</div>
       </div>
+      <div class="welcome-sticker" aria-hidden="true">
+        <span class="sticker-spark">✳</span>
+        <span class="sticker-line">CURIOUS?</span>
+        <strong>GOOD.</strong>
+        <span class="sticker-small">That's how<br />every mechanic starts.</span>
+      </div>
+    </section>
 
-      <div class="hero-info">
-        <div class="info-box hidden" id="info-box">
-          <div class="sys-name" id="info-name">System name</div>
-          <div class="sys-desc" id="info-desc">One-line description goes here.</div>
-          <a id="info-link" class="btn btn--primary" style="margin-top:0.75rem; width:fit-content;">Open system page &rarr;</a>
+    <section class="explore-section" id="explore">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / GET UNDER THE HOOD</p>
+          <h2 class="section-title">Meet your car's inner crew.</h2>
+          <p class="section-lead">Pick a part on the car or choose a system below. Hover to peek, click to dive in.</p>
         </div>
-        <p class="click-hint" id="tap-hint" style="display:none;">Tap a region to highlight it</p>
-        <div class="system-grid" id="system-grid" style="margin-top:1rem;">
-          <!-- chips rendered by JS -->
+        <span class="section-doodle" aria-hidden="true">↘</span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-svg-wrap" role="region" aria-label="Interactive car illustration. Select a highlighted region to explore a car system.">
+          <div class="illustration-label"><span class="live-dot"></span> INTERACTIVE CAR</div>
+          <svg class="car-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-label="Side profile of a car with clickable system regions">
+            <defs>
+              <style>
+                .region { cursor: pointer; transition: fill 0.15s ease, stroke 0.15s ease; stroke-linejoin: round; stroke-linecap: round; }
+                .region:hover { fill: var(--highlight-fill) !important; stroke: var(--highlight-stroke) !important; stroke-width: 3; }
+                .region:active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
+                .region.active { fill: var(--highlight-fill); stroke: var(--highlight-stroke); stroke-width: 3; }
+                .ground { fill: none; stroke: #d6d0c4; stroke-width: 3; stroke-dasharray: 7 8; }
+                .detail { fill: none; stroke: #8b98a5; stroke-width: 2; stroke-linecap: round; }
+              </style>
+            </defs>
+            <line class="ground" x1="60" y1="330" x2="740" y2="330" />
+            <circle class="region" data-slug="brakes" cx="220" cy="300" r="45" fill="#dce5ec" stroke="#526274" stroke-width="8" title="Brakes" />
+            <circle class="region" data-slug="suspension" cx="560" cy="300" r="45" fill="#dce5ec" stroke="#526274" stroke-width="8" title="Suspension" />
+            <circle cx="220" cy="300" r="14" fill="#8293a3" />
+            <circle cx="560" cy="300" r="14" fill="#8293a3" />
+            <path d="M 150 290 L 150 270 Q 180 220 260 210 L 300 185 L 320 160 L 520 160 L 540 185 L 570 200 L 670 255 L 690 285 L 690 300 L 150 300 Z" fill="#fffdf8" stroke="#34495e" stroke-width="6" />
+            <path d="M 305 190 L 330 165 L 510 165 L 535 195 Z" fill="#a9d8e8" stroke="#34495e" stroke-width="4" />
+            <path d="M 270 215 L 295 185 L 315 180 L 300 205 Z" fill="#a9d8e8" stroke="#34495e" stroke-width="3" />
+            <ellipse cx="145" cy="275" rx="12" ry="7" fill="#ffd76d" />
+            <ellipse cx="695" cy="275" rx="12" ry="7" fill="#ff9b8d" />
+            <rect class="region" data-slug="cooling" x="155" y="242" width="60" height="40" fill="#e9f3f5" stroke="#64748b" stroke-width="3" title="Cooling" />
+            <path class="region" data-slug="engine" d="M 180 205 L 330 200 L 330 260 L 290 275 L 220 280 L 180 270 Z" fill="#f7d8a5" stroke="#64748b" stroke-width="3" title="Engine" />
+            <rect class="region" data-slug="electrical" x="250" y="220" width="50" height="34" rx="4" fill="#f8e8a9" stroke="#64748b" stroke-width="3" title="Electrical" />
+            <path class="region" data-slug="transmission" d="M 350 240 L 540 235 L 540 285 L 360 290 Z" fill="#d9e8c4" stroke="#64748b" stroke-width="3" title="Transmission" />
+            <path class="region" data-slug="steering" d="M 255 178 L 295 176 L 290 210 L 260 212 Z" fill="#e5dafa" stroke="#64748b" stroke-width="3" title="Steering" />
+            <rect class="region" data-slug="fuel" x="565" y="250" width="95" height="38" rx="4" fill="#f5d5d0" stroke="#64748b" stroke-width="3" title="Fuel" />
+            <line class="detail" x1="330" y1="200" x2="330" y2="260" />
+            <line class="detail" x1="290" y1="275" x2="330" y2="260" />
+            <line class="detail" x1="220" y1="280" x2="290" y2="275" />
+            <line class="detail" x1="180" y1="270" x2="220" y2="280" />
+            <line class="detail" x1="360" y1="290" x2="540" y2="285" />
+            <line class="detail" x1="350" y1="240" x2="540" y2="235" />
+          </svg>
+          <p class="illustration-caption">A simplified peek inside a car — not to scale, but ready to explore.</p>
         </div>
-      </div>
-    </div>
 
-    <div class="divider"></div>
-
-    <section>
-      <h2 class="section-title">The power chain</h2>
-      <p class="section-lead">Power flows through the car in a fixed order. Understanding this chain is key to understanding how the parts work together.</p>
-      <div class="card">
-        <p style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; letter-spacing: 0.08em; color: var(--muted);">
-          Engine &rarr; Flywheel &rarr; Clutch / Torque converter &rarr; Gearbox &rarr; Driveshaft &rarr; Differential &rarr; Axles &rarr; Wheels
-        </p>
-        <p style="color: var(--text-soft); font-size: 0.95rem;">Never skip a step — each part passes power to the next. Click a system above to explore its components.</p>
+        <aside class="hero-info-panel">
+          <div class="info-box hidden" id="info-box" aria-live="polite">
+            <div class="info-kicker">YOU FOUND A SYSTEM</div>
+            <div class="sys-name" id="info-name">System name</div>
+            <div class="sys-desc" id="info-desc">One-line description goes here.</div>
+            <a id="info-link" class="btn btn--primary" style="margin-top:1rem; width:fit-content;">Explore this system <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="explore-prompt" id="explore-prompt">
+            <span class="prompt-icon" aria-hidden="true">👆</span>
+            <strong>Your move!</strong>
+            <p>Pick any coloured part of the car. We'll tell you what it does and why it matters.</p>
+          </div>
+          <p class="click-hint" id="tap-hint" style="display:none;">Tap a region to highlight it</p>
+          <div class="system-grid" id="system-grid">
+            <!-- systems rendered by JS -->
+          </div>
+          <p class="tiny-tip"><span aria-hidden="true">💡</span> Tip: You can explore from the list too.</p>
+        </aside>
       </div>
+    </section>
+
+    <section class="power-section" id="power-chain">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / FOLLOW THE ENERGY</p>
+          <h2 class="section-title">So, how does a car actually move?</h2>
+          <p class="section-lead">The engine makes power. A bunch of clever parts help get it to the wheels.</p>
+        </div>
+        <span class="section-doodle" aria-hidden="true">✳</span>
+      </div>
+      <div class="power-card">
+        <div class="power-intro"><span class="power-emoji" aria-hidden="true">⚡</span><div><strong>Follow the power trail</strong><p>A simplified example of a conventional rear-wheel-drive layout.</p></div></div>
+        <div class="power-chain" aria-label="Engine to wheels power flow">
+          <span class="power-step">Engine</span><span class="power-arrow">→</span>
+          <span class="power-step">Flywheel</span><span class="power-arrow">→</span>
+          <span class="power-step">Clutch</span><span class="power-arrow">→</span>
+          <span class="power-step">Gearbox</span><span class="power-arrow">→</span>
+          <span class="power-step">Driveshaft</span><span class="power-arrow">→</span>
+          <span class="power-step">Differential</span><span class="power-arrow">→</span>
+          <span class="power-step power-step--final">Wheels!</span>
+        </div>
+        <p class="power-footnote">Real layouts vary. Many front-wheel-drive cars combine the gearbox and differential into one unit called a transaxle.</p>
+      </div>
+    </section>
+
+    <section class="curiosity-strip">
+      <span class="curiosity-icon" aria-hidden="true">🧠</span>
+      <div><strong>Curiosity looks good on you.</strong><p>Start anywhere. Follow the connections. The more parts you understand, the more the whole car makes sense.</p></div>
+      <a href="#explore" class="curiosity-link">Explore again ↑</a>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <span>&copy; 2026 How Cars Work — Educational project</span>
-      <span>Free &middot; Static &middot; No tracking</span>
+      <span>© 2026 How Cars Work · Made for the curious</span>
+      <span>Free to explore · No tracking</span>
     </div>
   </footer>
 
