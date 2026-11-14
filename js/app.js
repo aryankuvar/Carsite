@@ -1,184 +1,179 @@
-/* ==========================================================================
-   How Cars Work — App
-   Renders system and component pages from data/systems.json using URL params.
-   ========================================================================== */
-
+/* How Cars Work — shared system and component page renderer */
 (function () {
-  function getParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
+  "use strict";
+
+  const getParam = (name) => new URLSearchParams(window.location.search).get(name);
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
   }
 
-  function escapeHtml(text) {
-    if (!text) return "";
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  function imageFallback(img) {
-    img.style.display = "none";
+  function showImageFallback(img) {
+    img.hidden = true;
     const wrap = img.closest(".image-wrap");
-    if (!wrap) return;
-    const existing = wrap.querySelector(".image-placeholder");
-    if (!existing) {
-      const ph = document.createElement("div");
-      ph.className = "image-placeholder";
-      ph.textContent = "Image not available";
-      wrap.appendChild(ph);
-    }
+    if (!wrap || wrap.querySelector(".image-placeholder")) return;
+
+    const placeholder = document.createElement("div");
+    placeholder.className = "image-placeholder";
+    placeholder.setAttribute("role", "img");
+    placeholder.setAttribute("aria-label", "Image unavailable");
+    placeholder.innerHTML = "<span aria-hidden='true'>🖼️</span><span>Image unavailable</span>";
+    wrap.appendChild(placeholder);
   }
 
-  // ------------------------------------------------------------------ System page
   function renderSystem(system) {
     document.getElementById("page-title").textContent = `${system.name} | How Cars Work`;
-
     const root = document.getElementById("system-root");
+
     root.innerHTML = `
-      <div class="system-hero">
+      <section class="system-hero">
         <div class="system-intro">
+          <p class="eyebrow">CAR SYSTEM / 01</p>
           <h1>${escapeHtml(system.name)}</h1>
-          <p style="font-size:0.9rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:0.5rem;">System</p>
-          <p>${escapeHtml(system.description)}</p>
+          <p class="system-description">${escapeHtml(system.description)}</p>
           <p>${escapeHtml(system.intro)}</p>
         </div>
         <div class="system-media">
           <div class="image-wrap">
-            <img src="${escapeHtml(system.image)}" alt="${escapeHtml(system.imageAlt || system.name)}" onerror="imageFallback(this)" />
+            <img class="system-image" src="${escapeHtml(system.image)}" alt="${escapeHtml(system.imageAlt || system.name)}" loading="lazy" />
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="divider"></div>
-
-      <section>
-        <h2 class="section-title">Key components</h2>
-        <p class="section-lead">Each component below links to its own page with definition, purpose, location, and failure symptoms.</p>
-        <div class="component-list">
-          ${system.components
-            .map(
-              (c) =>
-                `<a href="component.html?system=${system.slug}&slug=${c.slug}" class="component-card">
-                   <span class="comp-name">${escapeHtml(c.name)}</span>
-                   <span class="comp-slug">${c.slug}</span>
-                 </a>`
-            )
-            .join("")}
+      <section class="detail-section">
+        <div class="detail-section-heading">
+          <p class="eyebrow">TAKE A CLOSER LOOK</p>
+          <h2 class="section-title">Meet the components</h2>
+          <p class="section-lead">These are the key parts that work together to make the ${escapeHtml(system.name.toLowerCase())} system do its job.</p>
         </div>
+        <div class="component-list">
+          ${system.components.map((component) => `
+            <a href="component.html?system=${encodeURIComponent(system.slug)}&slug=${encodeURIComponent(component.slug)}" class="component-card">
+              <span class="component-card-icon" aria-hidden="true">⚙</span>
+              <span class="comp-name">${escapeHtml(component.name)}</span>
+              <span class="comp-slug">Explore component <span aria-hidden="true">↗</span></span>
+            </a>
+          `).join("")}
+        </div>
+      </section>
+    `;
+
+    const image = root.querySelector(".system-image");
+    if (image) image.addEventListener("error", () => showImageFallback(image), { once: true });
+  }
+
+  function renderNotFound(root, title, message) {
+    document.getElementById("page-title").textContent = `${title} | How Cars Work`;
+    root.innerHTML = `
+      <section class="card not-found">
+        <span class="not-found-icon" aria-hidden="true">🔎</span>
+        <h1>${escapeHtml(title)}</h1>
+        <p>${escapeHtml(message)}</p>
+        <a class="btn btn--primary" href="index.html">Back to the car <span aria-hidden="true">→</span></a>
       </section>
     `;
   }
 
-  // ------------------------------------------------------------------ Component page
-  function renderComponent(systemSlug, componentSlug) {
-    // find system + component (slugs are unique across all systems)
-    let foundSystem = null;
-    let foundComponent = null;
-
-    // `systems` is populated by loadData(); read from closure variable
-    for (const s of window.__HOW_CARS_SYSTEMS__) {
-      const c = s.components.find((x) => x.slug === componentSlug);
-      if (c) {
-        foundSystem = s;
-        foundComponent = c;
-        break;
-      }
-    }
-
-    if (!foundComponent) {
-      document.getElementById("page-title").textContent = "Not found | How Cars Work";
-      document.getElementById("component-root").innerHTML = `
-        <div class="card">
-          <h1>Component not found</h1>
-          <p>Could not find component <code>${escapeHtml(componentSlug)}</code>. <a href="index.html">Return to the car</a>.</p>
-        </div>
-      `;
-      return;
-    }
-
-    const system = foundSystem;
-    const comp = foundComponent;
+  function renderComponent(component) {
+    const system = component.system;
+    const comp = component.data;
     document.getElementById("page-title").textContent = `${comp.name} | How Cars Work`;
+    const root = document.getElementById("component-root");
 
-    const connectionsHtml = comp.connections && comp.connections.length
-      ? comp.connections
-          .map((connSlug) => {
-            // find which system this connection belongs to
-            let connSystemSlug = systemSlug;
-            for (const s of window.__HOW_CARS_SYSTEMS__) {
-              if (s.components.some((x) => x.slug === connSlug)) {
-                connSystemSlug = s.slug;
-                break;
-              }
-            }
-            return `<a href="component.html?system=${connSystemSlug}&slug=${connSlug}" class="connection-chip">${escapeHtml(connSlug)}</a>`;
-          })
-          .join("")
-      : `<p style="color:var(--muted); font-size:0.9rem;">No linked components documented yet.</p>`;
+    const connectionItems = (comp.connections || []).map((slug) => {
+      let linkedSystem = null;
+      let linkedComponent = null;
+      for (const candidateSystem of window.__HOW_CARS_SYSTEMS__) {
+        const found = candidateSystem.components.find((item) => item.slug === slug);
+        if (found) {
+          linkedSystem = candidateSystem;
+          linkedComponent = found;
+          break;
+        }
+      }
+      if (!linkedComponent) return "";
+      return `<a href="component.html?system=${encodeURIComponent(linkedSystem.slug)}&slug=${encodeURIComponent(linkedComponent.slug)}" class="connection-chip">${escapeHtml(linkedComponent.name)}</a>`;
+    }).filter(Boolean).join("");
 
-    document.getElementById("component-root").innerHTML = `
-      <div class="component-header">
-        <div class="comp-system">${escapeHtml(system.name)} system</div>
+    root.innerHTML = `
+      <section class="component-header">
+        <p class="eyebrow">${escapeHtml(system.name)} SYSTEM / COMPONENT</p>
         <h1>${escapeHtml(comp.name)}</h1>
         <p>${escapeHtml(comp.definition)}</p>
-      </div>
+      </section>
 
-      <div class="divider"></div>
-
-      <div class="field-group">
-        <h4>Purpose</h4>
-        <p>${escapeHtml(comp.purpose)}</p>
-      </div>
-
-      <div class="field-group">
-        <h4>Location</h4>
-        <p>${escapeHtml(comp.location)}</p>
-      </div>
-
-      <div class="field-group">
-        <h4>How it works</h4>
-        <p>${escapeHtml(comp.howItWorks)}</p>
-      </div>
-
-      <div class="field-group">
-        <h4>Connections</h4>
-        <div class="connections-list">${connectionsHtml}</div>
-      </div>
-
-      <div class="field-group">
-        <h4>What happens if it fails</h4>
-        <p>${escapeHtml(comp.failure)}</p>
-      </div>
+      <section class="component-details">
+        <article class="detail-card">
+          <span class="detail-icon" aria-hidden="true">🎯</span>
+          <div class="field-group"><h2>What's its job?</h2><p>${escapeHtml(comp.purpose)}</p></div>
+        </article>
+        <article class="detail-card">
+          <span class="detail-icon" aria-hidden="true">📍</span>
+          <div class="field-group"><h2>Where will you find it?</h2><p>${escapeHtml(comp.location)}</p></div>
+        </article>
+        <article class="detail-card detail-card--wide">
+          <span class="detail-icon" aria-hidden="true">⚙️</span>
+          <div class="field-group"><h2>How does it work?</h2><p>${escapeHtml(comp.howItWorks)}</p></div>
+        </article>
+        <article class="detail-card detail-card--wide">
+          <span class="detail-icon" aria-hidden="true">🔗</span>
+          <div class="field-group">
+            <h2>Connected to</h2>
+            <div class="connections-list">${connectionItems || "<span class='muted-copy'>No linked components documented yet.</span>"}</div>
+          </div>
+        </article>
+        <article class="detail-card detail-card--wide detail-card--warning">
+          <span class="detail-icon" aria-hidden="true">🧰</span>
+          <div class="field-group"><h2>What if it goes wrong?</h2><p>${escapeHtml(comp.failure)}</p></div>
+        </article>
+      </section>
+      <a class="back-system-link" href="system.html?slug=${encodeURIComponent(system.slug)}">← Back to the ${escapeHtml(system.name)} system</a>
     `;
   }
 
-  // ------------------------------------------------------------------ Load + route
   async function loadData() {
+    const systemRoot = document.getElementById("system-root");
+    const componentRoot = document.getElementById("component-root");
+    const root = systemRoot || componentRoot;
+    if (!root) return;
+
     try {
-      const res = await fetch("data/systems.json");
-      const data = await res.json();
+      const response = await fetch("data/systems.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (!Array.isArray(data.systems)) throw new Error("Invalid systems data");
+
       window.__HOW_CARS_SYSTEMS__ = data.systems;
+      const systemSlug = getParam("system") || getParam("slug");
 
-      const systemSlug = getParam("slug");
-      const componentSlug = getParam("component") || getParam("slug");
-
-      if (document.getElementById("system-root") && systemSlug) {
-        const system = data.systems.find((s) => s.slug === systemSlug);
+      if (systemRoot) {
+        const system = data.systems.find((item) => item.slug === systemSlug);
         if (system) renderSystem(system);
-        else {
-          document.getElementById("page-title").textContent = "Not found | How Cars Work";
-          document.getElementById("system-root").innerHTML = `
-            <div class="card"><h1>System not found</h1><p><a href="index.html">Return to the car</a>.</p></div>
-          `;
-        }
-      } else if (document.getElementById("component-root")) {
-        const sysParam = getParam("system");
-        renderComponent(sysParam, componentSlug);
+        else renderNotFound(systemRoot, "System not found", "That system link doesn't match anything in our garage.");
+        return;
       }
-    } catch (err) {
-      console.error("Failed to load systems.json:", err);
-      const root = document.getElementById("system-root") || document.getElementById("component-root");
-      if (root) root.innerHTML = "<p style='color:var(--muted);'>Content unavailable. Please check data/systems.json.</p>";
+
+      const componentSlug = getParam("component") || getParam("slug");
+      const system = data.systems.find((item) => item.slug === systemSlug);
+      const componentSystem = system || data.systems.find((item) => item.components.some((item) => item.slug === componentSlug));
+      const component = componentSystem?.components.find((item) => item.slug === componentSlug);
+
+      if (!component) {
+        renderNotFound(componentRoot, "Component not found", "We couldn't find that component. Try exploring the car from the homepage.");
+        return;
+      }
+      renderComponent({ system: componentSystem, data: component });
+    } catch (error) {
+      console.error("Failed to load Carsite content:", error);
+      root.innerHTML = `
+        <section class="card not-found">
+          <h1>We hit a little roadblock.</h1>
+          <p>We couldn't load the car guide. Check your connection and try refreshing the page.</p>
+          <a class="btn btn--primary" href="index.html">Back to home</a>
+        </section>
+      `;
     }
   }
 
